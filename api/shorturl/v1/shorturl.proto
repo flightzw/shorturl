@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package shorturl.v1;
+
+import "google/api/annotations.proto";
+ 
+option go_package = "shorturl/api/shorturl/v1;v1";
+
+// The greeting service definition.
+service ShorturlService {
+  // 获取短链接
+  rpc GetShorturl (GetShorturlRequest) returns (GetShorturlReply) {
+    option (google.api.http) = {
+      post: "/shorturls/geturl"
+      body: "*"
+    };
+  }
+  // 获取长链接
+  rpc GetLongurl (GetLongurlRequest) returns (GetLongurlReply) {
+    option (google.api.http) = {
+      get: "/shorturls/{code}"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message GetShorturlRequest {
+  string longurl = 1;
+}
+// The response message containing the greetings
+message GetShorturlReply {
+  string shorturl = 1;
+}
+
+message GetLongurlRequest {
+  string code = 1;
+}
+message GetLongurlReply {
+  string longurl = 1;
+}

@@ -1,0 +1,95 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: ""
+    version: 0.0.1
+paths:
+    /helloworld/{name}:
+        get:
+            tags:
+                - Greeter
+            description: Sends a greeting
+            operationId: Greeter_SayHello
+            parameters:
+                - name: name
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/helloworld.v1.HelloReply'
+    /shorturls/geturl:
+        post:
+            tags:
+                - ShorturlService
+            description: 获取短链接
+            operationId: ShorturlService_GetShorturl
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/shorturl.v1.GetShorturlRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/shorturl.v1.GetShorturlReply'
+    /shorturls/{code}:
+        get:
+            tags:
+                - ShorturlService
+            description: 获取长链接
+            operationId: ShorturlService_GetLongurl
+            parameters:
+                - name: code
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/shorturl.v1.GetLongurlReply'
+components:
+    schemas:
+        helloworld.v1.HelloReply:
+            type: object
+            properties:
+                message:
+                    type: string
+            description: The response message containing the greetings
+        shorturl.v1.GetLongurlReply:
+            type: object
+            properties:
+                longurl:
+                    type: string
+        shorturl.v1.GetShorturlReply:
+            type: object
+            properties:
+                shorturl:
+                    type: string
+            description: The response message containing the greetings
+        shorturl.v1.GetShorturlRequest:
+            type: object
+            properties:
+                longurl:
+                    type: string
+            description: The request message containing the user's name.
+tags:
+    - name: Greeter
+      description: The greeting service definition.
+    - name: ShorturlService
+      description: The greeting service definition.
