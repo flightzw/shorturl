@@ -25,12 +25,12 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/helloworld.v1.HelloReply'
-    /shorturls/geturl:
+    /v1/shorturls:
         post:
             tags:
-                - ShorturlService
+                - Shorturl
             description: 获取短链接
-            operationId: ShorturlService_GetShorturl
+            operationId: Shorturl_GetShorturl
             requestBody:
                 content:
                     application/json:
@@ -44,12 +44,12 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/shorturl.v1.GetShorturlReply'
-    /shorturls/{code}:
+    /v1/shorturls/{code}:
         get:
             tags:
-                - ShorturlService
+                - Shorturl
             description: 获取长链接
-            operationId: ShorturlService_GetLongurl
+            operationId: Shorturl_GetLongurl
             parameters:
                 - name: code
                   in: path
@@ -91,5 +91,5 @@ components:
 tags:
     - name: Greeter
       description: The greeting service definition.
-    - name: ShorturlService
+    - name: Shorturl
       description: The greeting service definition.

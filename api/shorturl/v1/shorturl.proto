@@ -3,22 +3,22 @@ syntax = "proto3";
 package shorturl.v1;
 
 import "google/api/annotations.proto";
- 
-option go_package = "shorturl/api/shorturl/v1;v1";
+
+option go_package = "github.com/flightzw/shorturl/api/shorturl/v1;v1";
 
 // The greeting service definition.
-service ShorturlService {
+service Shorturl {
   // 获取短链接
   rpc GetShorturl (GetShorturlRequest) returns (GetShorturlReply) {
     option (google.api.http) = {
-      post: "/shorturls/geturl"
+      post: "/v1/shorturls"
       body: "*"
     };
   }
   // 获取长链接
   rpc GetLongurl (GetLongurlRequest) returns (GetLongurlReply) {
     option (google.api.http) = {
-      get: "/shorturls/{code}"
+      get: "/v1/shorturls/{code}"
     };
   }
 }

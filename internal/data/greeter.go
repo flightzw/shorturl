@@ -3,7 +3,7 @@ package data
 import (
 	"context"
 
-	"shorturl/internal/biz"
+	"github.com/flightzw/shorturl/internal/biz"
 
 	"github.com/go-kratos/kratos/v2/log"
 )

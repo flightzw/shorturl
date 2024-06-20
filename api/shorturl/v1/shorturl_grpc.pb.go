@@ -19,136 +19,136 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	ShorturlService_GetShorturl_FullMethodName = "/shorturl.v1.ShorturlService/GetShorturl"
-	ShorturlService_GetLongurl_FullMethodName  = "/shorturl.v1.ShorturlService/GetLongurl"
+	Shorturl_GetShorturl_FullMethodName = "/shorturl.v1.Shorturl/GetShorturl"
+	Shorturl_GetLongurl_FullMethodName  = "/shorturl.v1.Shorturl/GetLongurl"
 )
 
-// ShorturlServiceClient is the client API for ShorturlService service.
+// ShorturlClient is the client API for Shorturl service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 //
 // The greeting service definition.
-type ShorturlServiceClient interface {
+type ShorturlClient interface {
 	// 获取短链接
 	GetShorturl(ctx context.Context, in *GetShorturlRequest, opts ...grpc.CallOption) (*GetShorturlReply, error)
 	// 获取长链接
 	GetLongurl(ctx context.Context, in *GetLongurlRequest, opts ...grpc.CallOption) (*GetLongurlReply, error)
 }
 
-type shorturlServiceClient struct {
+type shorturlClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewShorturlServiceClient(cc grpc.ClientConnInterface) ShorturlServiceClient {
-	return &shorturlServiceClient{cc}
+func NewShorturlClient(cc grpc.ClientConnInterface) ShorturlClient {
+	return &shorturlClient{cc}
 }
 
-func (c *shorturlServiceClient) GetShorturl(ctx context.Context, in *GetShorturlRequest, opts ...grpc.CallOption) (*GetShorturlReply, error) {
+func (c *shorturlClient) GetShorturl(ctx context.Context, in *GetShorturlRequest, opts ...grpc.CallOption) (*GetShorturlReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetShorturlReply)
-	err := c.cc.Invoke(ctx, ShorturlService_GetShorturl_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Shorturl_GetShorturl_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *shorturlServiceClient) GetLongurl(ctx context.Context, in *GetLongurlRequest, opts ...grpc.CallOption) (*GetLongurlReply, error) {
+func (c *shorturlClient) GetLongurl(ctx context.Context, in *GetLongurlRequest, opts ...grpc.CallOption) (*GetLongurlReply, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetLongurlReply)
-	err := c.cc.Invoke(ctx, ShorturlService_GetLongurl_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Shorturl_GetLongurl_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ShorturlServiceServer is the server API for ShorturlService service.
-// All implementations must embed UnimplementedShorturlServiceServer
+// ShorturlServer is the server API for Shorturl service.
+// All implementations must embed UnimplementedShorturlServer
 // for forward compatibility
 //
 // The greeting service definition.
-type ShorturlServiceServer interface {
+type ShorturlServer interface {
 	// 获取短链接
 	GetShorturl(context.Context, *GetShorturlRequest) (*GetShorturlReply, error)
 	// 获取长链接
 	GetLongurl(context.Context, *GetLongurlRequest) (*GetLongurlReply, error)
-	mustEmbedUnimplementedShorturlServiceServer()
+	mustEmbedUnimplementedShorturlServer()
 }
 
-// UnimplementedShorturlServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedShorturlServiceServer struct {
+// UnimplementedShorturlServer must be embedded to have forward compatible implementations.
+type UnimplementedShorturlServer struct {
 }
 
-func (UnimplementedShorturlServiceServer) GetShorturl(context.Context, *GetShorturlRequest) (*GetShorturlReply, error) {
+func (UnimplementedShorturlServer) GetShorturl(context.Context, *GetShorturlRequest) (*GetShorturlReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetShorturl not implemented")
 }
-func (UnimplementedShorturlServiceServer) GetLongurl(context.Context, *GetLongurlRequest) (*GetLongurlReply, error) {
+func (UnimplementedShorturlServer) GetLongurl(context.Context, *GetLongurlRequest) (*GetLongurlReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLongurl not implemented")
 }
-func (UnimplementedShorturlServiceServer) mustEmbedUnimplementedShorturlServiceServer() {}
+func (UnimplementedShorturlServer) mustEmbedUnimplementedShorturlServer() {}
 
-// UnsafeShorturlServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ShorturlServiceServer will
+// UnsafeShorturlServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ShorturlServer will
 // result in compilation errors.
-type UnsafeShorturlServiceServer interface {
-	mustEmbedUnimplementedShorturlServiceServer()
+type UnsafeShorturlServer interface {
+	mustEmbedUnimplementedShorturlServer()
 }
 
-func RegisterShorturlServiceServer(s grpc.ServiceRegistrar, srv ShorturlServiceServer) {
-	s.RegisterService(&ShorturlService_ServiceDesc, srv)
+func RegisterShorturlServer(s grpc.ServiceRegistrar, srv ShorturlServer) {
+	s.RegisterService(&Shorturl_ServiceDesc, srv)
 }
 
-func _ShorturlService_GetShorturl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Shorturl_GetShorturl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetShorturlRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShorturlServiceServer).GetShorturl(ctx, in)
+		return srv.(ShorturlServer).GetShorturl(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ShorturlService_GetShorturl_FullMethodName,
+		FullMethod: Shorturl_GetShorturl_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShorturlServiceServer).GetShorturl(ctx, req.(*GetShorturlRequest))
+		return srv.(ShorturlServer).GetShorturl(ctx, req.(*GetShorturlRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ShorturlService_GetLongurl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Shorturl_GetLongurl_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetLongurlRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ShorturlServiceServer).GetLongurl(ctx, in)
+		return srv.(ShorturlServer).GetLongurl(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ShorturlService_GetLongurl_FullMethodName,
+		FullMethod: Shorturl_GetLongurl_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ShorturlServiceServer).GetLongurl(ctx, req.(*GetLongurlRequest))
+		return srv.(ShorturlServer).GetLongurl(ctx, req.(*GetLongurlRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// ShorturlService_ServiceDesc is the grpc.ServiceDesc for ShorturlService service.
+// Shorturl_ServiceDesc is the grpc.ServiceDesc for Shorturl service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var ShorturlService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "shorturl.v1.ShorturlService",
-	HandlerType: (*ShorturlServiceServer)(nil),
+var Shorturl_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "shorturl.v1.Shorturl",
+	HandlerType: (*ShorturlServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetShorturl",
-			Handler:    _ShorturlService_GetShorturl_Handler,
+			Handler:    _Shorturl_GetShorturl_Handler,
 		},
 		{
 			MethodName: "GetLongurl",
-			Handler:    _ShorturlService_GetLongurl_Handler,
+			Handler:    _Shorturl_GetLongurl_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

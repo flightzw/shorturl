@@ -6,11 +6,11 @@
 package main
 
 import (
-	"shorturl/internal/biz"
-	"shorturl/internal/conf"
-	"shorturl/internal/data"
-	"shorturl/internal/server"
-	"shorturl/internal/service"
+	"github.com/flightzw/shorturl/internal/biz"
+	"github.com/flightzw/shorturl/internal/conf"
+	"github.com/flightzw/shorturl/internal/data"
+	"github.com/flightzw/shorturl/internal/server"
+	"github.com/flightzw/shorturl/internal/service"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"

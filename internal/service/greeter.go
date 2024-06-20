@@ -3,8 +3,9 @@ package service
 import (
 	"context"
 
-	v1 "shorturl/api/helloworld/v1"
-	"shorturl/internal/biz"
+	v1 "github.com/flightzw/shorturl/api/helloworld/v1"
+
+	"github.com/flightzw/shorturl/internal/biz"
 )
 
 // GreeterService is a greeter service.

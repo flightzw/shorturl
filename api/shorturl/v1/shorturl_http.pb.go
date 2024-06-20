@@ -19,23 +19,23 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
-const OperationShorturlServiceGetLongurl = "/shorturl.v1.ShorturlService/GetLongurl"
-const OperationShorturlServiceGetShorturl = "/shorturl.v1.ShorturlService/GetShorturl"
+const OperationShorturlGetLongurl = "/shorturl.v1.Shorturl/GetLongurl"
+const OperationShorturlGetShorturl = "/shorturl.v1.Shorturl/GetShorturl"
 
-type ShorturlServiceHTTPServer interface {
+type ShorturlHTTPServer interface {
 	// GetLongurl 获取长链接
 	GetLongurl(context.Context, *GetLongurlRequest) (*GetLongurlReply, error)
 	// GetShorturl 获取短链接
 	GetShorturl(context.Context, *GetShorturlRequest) (*GetShorturlReply, error)
 }
 
-func RegisterShorturlServiceHTTPServer(s *http.Server, srv ShorturlServiceHTTPServer) {
+func RegisterShorturlHTTPServer(s *http.Server, srv ShorturlHTTPServer) {
 	r := s.Route("/")
-	r.POST("/shorturls/geturl", _ShorturlService_GetShorturl0_HTTP_Handler(srv))
-	r.GET("/shorturls/{code}", _ShorturlService_GetLongurl0_HTTP_Handler(srv))
+	r.POST("/v1/shorturls", _Shorturl_GetShorturl0_HTTP_Handler(srv))
+	r.GET("/v1/shorturls/{code}", _Shorturl_GetLongurl0_HTTP_Handler(srv))
 }
 
-func _ShorturlService_GetShorturl0_HTTP_Handler(srv ShorturlServiceHTTPServer) func(ctx http.Context) error {
+func _Shorturl_GetShorturl0_HTTP_Handler(srv ShorturlHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in GetShorturlRequest
 		if err := ctx.Bind(&in); err != nil {
@@ -44,7 +44,7 @@ func _ShorturlService_GetShorturl0_HTTP_Handler(srv ShorturlServiceHTTPServer) f
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationShorturlServiceGetShorturl)
+		http.SetOperation(ctx, OperationShorturlGetShorturl)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
 			return srv.GetShorturl(ctx, req.(*GetShorturlRequest))
 		})
@@ -57,7 +57,7 @@ func _ShorturlService_GetShorturl0_HTTP_Handler(srv ShorturlServiceHTTPServer) f
 	}
 }
 
-func _ShorturlService_GetLongurl0_HTTP_Handler(srv ShorturlServiceHTTPServer) func(ctx http.Context) error {
+func _Shorturl_GetLongurl0_HTTP_Handler(srv ShorturlHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in GetLongurlRequest
 		if err := ctx.BindQuery(&in); err != nil {
@@ -66,7 +66,7 @@ func _ShorturlService_GetLongurl0_HTTP_Handler(srv ShorturlServiceHTTPServer) fu
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationShorturlServiceGetLongurl)
+		http.SetOperation(ctx, OperationShorturlGetLongurl)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
 			return srv.GetLongurl(ctx, req.(*GetLongurlRequest))
 		})
@@ -79,24 +79,24 @@ func _ShorturlService_GetLongurl0_HTTP_Handler(srv ShorturlServiceHTTPServer) fu
 	}
 }
 
-type ShorturlServiceHTTPClient interface {
+type ShorturlHTTPClient interface {
 	GetLongurl(ctx context.Context, req *GetLongurlRequest, opts ...http.CallOption) (rsp *GetLongurlReply, err error)
 	GetShorturl(ctx context.Context, req *GetShorturlRequest, opts ...http.CallOption) (rsp *GetShorturlReply, err error)
 }
 
-type ShorturlServiceHTTPClientImpl struct {
+type ShorturlHTTPClientImpl struct {
 	cc *http.Client
 }
 
-func NewShorturlServiceHTTPClient(client *http.Client) ShorturlServiceHTTPClient {
-	return &ShorturlServiceHTTPClientImpl{client}
+func NewShorturlHTTPClient(client *http.Client) ShorturlHTTPClient {
+	return &ShorturlHTTPClientImpl{client}
 }
 
-func (c *ShorturlServiceHTTPClientImpl) GetLongurl(ctx context.Context, in *GetLongurlRequest, opts ...http.CallOption) (*GetLongurlReply, error) {
+func (c *ShorturlHTTPClientImpl) GetLongurl(ctx context.Context, in *GetLongurlRequest, opts ...http.CallOption) (*GetLongurlReply, error) {
 	var out GetLongurlReply
-	pattern := "/shorturls/{code}"
+	pattern := "/v1/shorturls/{code}"
 	path := binding.EncodeURL(pattern, in, true)
-	opts = append(opts, http.Operation(OperationShorturlServiceGetLongurl))
+	opts = append(opts, http.Operation(OperationShorturlGetLongurl))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -105,11 +105,11 @@ func (c *ShorturlServiceHTTPClientImpl) GetLongurl(ctx context.Context, in *GetL
 	return &out, nil
 }
 
-func (c *ShorturlServiceHTTPClientImpl) GetShorturl(ctx context.Context, in *GetShorturlRequest, opts ...http.CallOption) (*GetShorturlReply, error) {
+func (c *ShorturlHTTPClientImpl) GetShorturl(ctx context.Context, in *GetShorturlRequest, opts ...http.CallOption) (*GetShorturlReply, error) {
 	var out GetShorturlReply
-	pattern := "/shorturls/geturl"
+	pattern := "/v1/shorturls"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationShorturlServiceGetShorturl))
+	opts = append(opts, http.Operation(OperationShorturlGetShorturl))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
