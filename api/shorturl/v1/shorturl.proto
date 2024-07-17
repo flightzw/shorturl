@@ -9,32 +9,24 @@ option go_package = "github.com/flightzw/shorturl/api/shorturl/v1;v1";
 // The greeting service definition.
 service Shorturl {
   // 获取短链接
-  rpc GetShorturl (GetShorturlRequest) returns (GetShorturlReply) {
+  rpc GetShorturl(GetShorturlRequest) returns (GetShorturlReply) {
     option (google.api.http) = {
-      post: "/v1/shorturls"
-      body: "*"
+      post : "/v1/shorturls"
+      body : "*"
     };
   }
   // 获取长链接
-  rpc GetLongurl (GetLongurlRequest) returns (GetLongurlReply) {
+  rpc GetLongurl(GetLongurlRequest) returns (GetLongurlReply) {
     option (google.api.http) = {
-      get: "/v1/shorturls/{code}"
+      get : "/v1/shorturls/{code}"
     };
   }
 }
 
 // The request message containing the user's name.
-message GetShorturlRequest {
-  string longurl = 1;
-}
+message GetShorturlRequest { string longurl = 1; }
 // The response message containing the greetings
-message GetShorturlReply {
-  string shorturl = 1;
-}
+message GetShorturlReply { string shorturl = 1; }
 
-message GetLongurlRequest {
-  string code = 1;
-}
-message GetLongurlReply {
-  string longurl = 1;
-}
+message GetLongurlRequest { string code = 1; }
+message GetLongurlReply { string longurl = 1; }
